@@ -13,51 +13,55 @@ class MyDrawer extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(5, 40, 5, 5),
         child: Column(
           children: [
-             const SizedBox(
-                    height: 100,
-                    width: 100,
-                    child: CircleAvatar(         
-                      radius: 20,
-                      backgroundImage: AssetImage("assets/images/profil.png"),
-                    ),
-                  ),
-            const Text("Emma.stone@gmail.com", style: TextStyle(color: Colors.black),),
+            const SizedBox(
+              height: 100,
+              width: 100,
+              child: CircleAvatar(
+                radius: 20,
+                backgroundImage: AssetImage("assets/images/profil.png"),
+              ),
+            ),
+            const Text(
+              "Emma.stone@gmail.com",
+              style: TextStyle(color: Colors.black),
+            ),
             ListTile(
               title: const Text("Visit Cart"),
               onTap: () {
-      
-                 Navigator.push(context,
-                          MaterialPageRoute(builder: (BuildContext context) {
-                          return const VisitCard();
-                          }));
-                
-              },
-            ),
-             ListTile(
-              title: const Text("Details"),
-              onTap: () {
-                 Navigator.push(context,
-                          MaterialPageRoute(builder: (BuildContext context) {
-                          return const Details(email: "Emma.stone@gmail.com2",);
-                          }));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (BuildContext context) {
+                  return const VisitCard();
+                }));
               },
             ),
             ListTile(
-              title: const Text("LinkedLn"),
+              title: const Text("Details"),
               onTap: () {
-               // _launchURL("https://www.linkedin.com/");
-              }
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (BuildContext context) {
+                  return const Details(
+                    email: "Emma.stone@gmail.com2",
+                  );
+                }));
+              },
             ),
+            ListTile(
+                title: const Text("LinkedLn"),
+                onTap: () {
+                   _launchURL('https://www.linkedin.com/');
+                }),
           ],
         ),
       ),
     );
   }
-  //  _launchURL(String url) async {
-  //   if (await canLaunch("www.linkedin.com")) {
-  //     await launch("www.linkedin.com");
-  //   } else {
-  //     throw 'Could not launch $url';
-  //   }
-  // }
+
+  Future<void> _launchURL(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 }
